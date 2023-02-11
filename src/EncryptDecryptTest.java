@@ -1,12 +1,61 @@
-/**
- * @author maha
- */
-public class ThreeTenCipherTest2 {
+import org.junit.jupiter.api.Test;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+import static org.junit.jupiter.api.Assertions.*;
+
+class EncryptDecryptTest {
+
+    @Test
+    void randomCipherAlphabetIndexForElement() {
+    }
+
+    @Test
+    void getCharIndex() {
+        final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
+
+        EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
+        assertEquals(23, encryptDecrypt.getCharIndex('x'));
+    }
+
+    @Test
+    void getEncryptedChar() {
+        EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
+        char[] arr = new char[]{'C',
+                'X',
+                'Q',
+                'Z',
+                'V',
+                'T',
+                'J',
+                'U',
+                'W',
+                'R',
+                'B',
+                'H',
+                'F',
+                'N',
+                'O',
+                'S',
+                'K',
+                'L',
+                'D',
+                'P',
+                'G',
+                'E',
+                'M',
+                'A',
+                'I',
+                'Y'};
+        assertEquals('C', encryptDecrypt.getEncryptedChar(arr, 0));
+    }
+
+
+    @Test
+    void getReplacingCharacter() {
+    }
+
+    @Test
+    void encrypt() {
+        EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
         char A[][] = new char[][]{
                 {
                         'C',
@@ -145,18 +194,6 @@ public class ThreeTenCipherTest2 {
                 'G'
         }
         };
-        String text1 = new String("Hello 310 students");
-        //ThreeTenCipher P1 = new ThreeTenCipher();
-        EncryptDecrypt EncDec = new EncryptDecrypt();
-        //P1.setPlainText(text1);
-
-        //P1.setKeys(A, text1.length());
-        //EncDec.encrypt();
-        String text2 = EncDec.decrypt();
-        if (text1.equals(text2))
-            System.out.println("Yay");
-
-        // create more testers for textArxhive of ThreeTenCipher
-
+        //assertEquals("abcw", encryptDecrypt.encrypt(A, "metqasz"));
     }
 }

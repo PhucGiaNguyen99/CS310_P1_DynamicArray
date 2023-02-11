@@ -2,36 +2,44 @@ import javax.crypto.Cipher;
 import java.util.Arrays;
 
 /**
- * @author maha
+ * @author Phuc Nguyen
  */
 public class ThreeTenCipher {
 
     /**
-     * // constructor that  initializes the keys array, the textArchive, the cipherText, the plaintext, and sets the sizeStored to 0.
+     * Constructor:
+     * Initialize plainText and keys to given values.
+     * Initialize capacity to DEFAULT_CAPACITY.
+     * Initialize textArchive with DEFAULT_CAPACITY.
+     * Initialize sizeStored to 0.
      */
     public ThreeTenCipher(char[][] givenKeys, String givenPlainText) {
-        ThreeTenCipher.plainText = givenPlainText;
-        ThreeTenCipher.keys = givenKeys;
+        plainText = givenPlainText;
+        keys = givenKeys;
 
         // initialize the capacity to the default capacity of 100
         this.capacity = DEFAULT_CAPACITY;
 
-        // create textArchive with the capacity
-        this.textArchive = new char[capacity];
-        ThreeTenCipher.cipherText = "";
+        // initialize textArchive with the capacity
+        this.textArchive = new char[DEFAULT_CAPACITY];
         this.sizeStored = 0;
 
+        cipherText = "";
     }
 
     private final int DEFAULT_CAPACITY = 100;
     private final double GROWTH_RATE = 1.5;
+
+    /**
+     * Store the capacity of textArchive.
+     */
     private int capacity;
 
 
     /**
-     * stores the 5 cipher alphabets each of 26 characters length.
+     * Store the 5 cipher alphabets each of 26 characters length.
      */
-    private static char[][] keys;
+    public static char[][] keys;
 
     /**
      * This is the cipher text to be decrypted.
@@ -39,14 +47,14 @@ public class ThreeTenCipher {
     public static String cipherText;
 
     /**
-     * This is the plain text to be encrypted.
+     * The plain text to be encrypted.
      */
     public static String plainText;
 
     /**
-     * a character array with initial capacity of 100 that contains all decoded text blocks
+     *  A character array with initial capacity of 100 that contains all decoded text blocks
      */
-    private char textArchive[];
+    private char[] textArchive;
 
     /**
      * the size of the stored text in textArchive.
@@ -111,7 +119,6 @@ public class ThreeTenCipher {
      * @return true if textArchive is empty
      */
     public boolean isEmpty() {
-
         return this.sizeStored == 0;
     }
 
@@ -121,7 +128,7 @@ public class ThreeTenCipher {
      * @return true if textArchive is full
      */
     public boolean isFull() {
-        return true;
+        return this.sizeStored == this.capacity;
     }
 
     /**
@@ -148,6 +155,7 @@ public class ThreeTenCipher {
      * @param plain to set plainText
      */
     public void setPlainText(String plain) {
+        plainText = plain;
     }
 
     /**
@@ -156,7 +164,7 @@ public class ThreeTenCipher {
      * @return plainText
      */
     public String getPlainText() {
-        return ThreeTenCipher.plainText;
+        return plainText;
     }
 
     /**
@@ -166,8 +174,9 @@ public class ThreeTenCipher {
      * @param keys the cipher alphabets of 26 length each
      * @param size 5 cipher alphabet keys
      */
-    public void setKeys(char[][] keys, int size) {
-        ThreeTenCipher.keys = keys;
+    public char[][] setKeys(char[][] keys, int size) {
+        keys = keys;
+        return keys;
     }
 
     /**

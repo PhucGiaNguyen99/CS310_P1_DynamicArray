@@ -4,22 +4,56 @@ import java.util.Random;
  * @author maha
  */
 public class EncryptDecrypt {
-
     /**
      * Constant for a string of alphabets.
      */
     private final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
 
-    static String plainText;
+    /**
+     * this integer array of size equal to plainTextSize
+     * contains the random numbers to be used by the encrypt/decrypt methods
+     */
+    private int[] selectAlpha;
+
     /**
      * this instance variable contains the size of the plainText in the ThreeTenCipher class.
      */
-    private int plainTextSize;
+    private int plainTextSize = ThreeTenCipher.plainText.length();
 
     /**
-     * plainTextSize setter
-     * <p>
-     * s set equal to the length of plainText from ThreeTenCipher class
+     * Generate a random integer from 0 to (upperBound - 1).
+     *
+     * @return a random integer from 0 to (upperBound - 1).
+     */
+    //PRIVATE
+    private int randomNumber(int upperBound) {
+        Random random = new Random();
+        return random.nextInt(upperBound);
+    }
+
+    /**
+     * Generate selectAlpha which contains cipher alphabets indexes for characters of plainText.
+     *
+     * @return an integer array of cipher alphabets indexes
+     */
+    // Print out which cipher alphabets array applied for each character
+    // REMOVE PLAIN TEXT SIZE
+    private int[] generateSelectAlpha() {
+        this.selectAlpha = new int[getPlainTextSize()];
+        int keysLength = ThreeTenCipher.keys.length;
+        //System.out.println("");
+        for (int i = 0; i < plainTextSize; i++) {
+            this.selectAlpha[i] = randomNumber(keysLength);
+            //System.out.println("Index " + i + ": " + this.selectAlpha[i]);
+        }
+        return selectAlpha;
+    }
+
+
+    /**
+     * plainTextSize setter.
+     *
+     * @param c given length to set for plainText of ThreeTenCipher class
      */
     public void setPlainTextSize(int c) {
         this.plainTextSize = c;
@@ -34,89 +68,73 @@ public class EncryptDecrypt {
         return this.plainTextSize;
     }
 
+
     /**
-     * Random an integer from 0 to 5 to determine which cipher alphabet to use.
+     * Get the index of given character in the alphabet array constant ALPHA.
      *
-     * @return a random integer from 0 to 5.
+     * @param c character to check index of.
+     * @return index of given character c in ALPHA.
      */
-    private int randomCipherAlphabetIndexForElement() {
-        Random random = new Random();
-        return random.nextInt(5);
+    //PRIVATE
+    private int getCharIndex(char c) {
+        System.out.println(c + ": " + ALPHA.indexOf(c));
+        return ALPHA.indexOf(c);
     }
 
     /**
-     * Get the position of given character in the alphabet ALPHA.
+     * Get encrypted character.
      *
-     * @param c given character to determine the position
-     * @return index of given character c in ALPHA.
+     * @param cipherAlphabets given cipher alphabets array
+     * @param index           index of character in the array
+     * @return
      */
-    private int getCharPosition(char c) {
-        return ALPHA.indexOf(c);
+    //PRIVATE
+    public char getEncryptedChar(char[] cipherAlphabets, int index) {
+        return cipherAlphabets[index];
     }
 
     /**
      * Get the replacing character in given cipher alphabets.
      *
-     * @param charPosition    position of character which is index of the character in ALPHA
+     * @param charIndex       position of character which is index of the character in ALPHA
      * @param cipherAlphabets given cipher alphabets to convert the character to
      * @return replaced character
      */
-    private char getReplacingCharacter(int charPosition, char[] cipherAlphabets) {
-        if (charPosition < 0 || charPosition > 25) {
+    //PRIVATE
+    private char getReplacedCharFromCipherArr(char[] cipherAlphabets, int charIndex) {
+        if (charIndex < 0 || charIndex > 25) {
             throw new IllegalArgumentException("Character index must be within 0-25!");
         }
-        return cipherAlphabets[charPosition];
+        return cipherAlphabets[charIndex];
     }
-
 
     /**
-     * this integer array of size equal to plainTextSize
-     * contains the random numbers to be used by the encrypt/decrypt methods
+     * Encrypt a single character.
+     *
+     * @param cipherAlphabets      cipher alphabets including 5 arrays with length of 26
+     * @param cipherAlphabetsIndex index of the array in the cipher alphabets
+     * @param c                    character needed to be encrypted
+     * @return
      */
-    private int[] selectAlpha;
-
-
-    private int[] generateSelectAlpha() {
-        this.selectAlpha = new int[getPlainTextSize()];
-        for (int i = 0; i < plainTextSize; i++) {
-            this.selectAlpha[i] = randomCipherAlphabetIndexForElement();
-        }
-        return selectAlpha;
+    public char encryptSingleChar(char[][] cipherAlphabets, int cipherAlphabetsIndex, char c) {
+        return getReplacedCharFromCipherArr(getCharIndex(c), cipherAlphabets[cipherAlphabetsIndex]);
     }
+
 
     /**
      * first randomly sets the selectAlpha array to random numbers between 0 and 4 this number indicates which alphabet cipher is used for each letter in plainText
      * accesses the plainText in the ThreeTenCipher then
      * encrypts it and sets the cipherText in the ThreeTenCipher
      */
-    public void encrypt() {
-        // do with only one cipher alphabet
-        char[] cipherAlphabets = new char[]{'C',
-                'X',
-                'Q',
-                'Z',
-                'V',
-                'T',
-                'J',
-                'U',
-                'W',
-                'R',
-                'B',
-                'H',
-                'F',
-                'N',
-                'O',
-                'S',
-                'K',
-                'L',
-                'D',
-                'P',
-                'G',
-                'E',
-                'M',
-                'A',
-                'I',
-                'Y'};
+    // REMOVE KEYS ARRAY, remove plainText, void
+    public String encrypt(char[][] cipherAlphabets) {
+
+        String encryptedText = "";
+        int[] selectAlpha = generateSelectAlpha();
+        for (int charIndex = 0; charIndex < ThreeTenCipher.plainText.length(); charIndex++) {
+            encryptedText += encryptSingleChar(cipherAlphabets, selectAlpha[charIndex], ThreeTenCipher.plainText.charAt(charIndex));
+        }
+        return encryptedText;
 
     }
 
@@ -125,7 +143,7 @@ public class EncryptDecrypt {
      * decrypts the cipher text
      * then calls the archiveDecrypted to store the resulting string in the ThreeTenCipher testArchive instance variable.
      *
-     * @return returns the resulting text.
+     * @return returns the resulting text.w
      */
     public String decrypt() {
         return "";
