@@ -1451,7 +1451,1728 @@ class ThreeTenCipherTest {
         };
         ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
 
-        assertTrue(Arrays.deepEquals(newKeys,threeTenCipher.setKeys(newKeys,1)));
+        assertTrue(Arrays.deepEquals(newKeys, threeTenCipher.setKeys(newKeys, 1)));
 
+    }
+
+    @Test
+    void insertText() {
+    }
+
+    @Test
+    void cleanArchivedText() {
+    }
+
+    @Test
+    void testGetStorageCapacity() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        assertEquals(100, threeTenCipher.getStorageCapacity());
+    }
+/*
+    @Test
+    void testGetStorageCapacityAfter() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        threeTenCipher.grow();
+        assertEquals(150, threeTenCipher.getStorageCapacity());
+        threeTenCipher.grow();
+        assertEquals(225, threeTenCipher.getStorageCapacity());
+
+    }
+
+    @Test
+    void testGetSize() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+    }*/
+
+    @Test
+    void testIsEmpty() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+    }
+
+    @Test
+    void testIsFull() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+    }
+
+    @Test
+    void testSetCipherText() {
+    }
+
+    @Test
+    void testGetCipherText() {
+    }
+
+    @Test
+    void testSetPlainText() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+    }
+
+    @Test
+    void testGetPlainText() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+    }
+
+    @Test
+    void testSetKeys() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+    }
+
+    @Test
+    void getTextArchive() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+    }
+
+    @Test
+    void testInsertTextUnderInitialCap() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        System.out.println("Capacity before: " + threeTenCipher.getSize());
+        char[] newText = new char[]{'C', 'M', 'N', 'T', 'L'};
+        threeTenCipher.insertText(newText);
+
+        char[] newText2 = new char[]{'C', 'M', 'N', 'T', 'L'};
+        threeTenCipher.insertText(newText2);
+        System.out.println("Capacity after: " + threeTenCipher.getSize());
+        assertEquals(10, threeTenCipher.getSize());
+
+    }
+
+    @Test
+    void testInsertTextOverInitialCap() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        System.out.println("Capacity before: " + threeTenCipher.getSize());
+
+
+        // bigger
+        // create added char array with length of 180
+        char[] addedArr = new char[180];
+        for (int i = 0; i < 180; i++) {
+            addedArr[i++] = 'a';
+        }
+        threeTenCipher.insertText(addedArr);
+        System.out.println("After adding: ");
+        System.out.println("Cap: " + threeTenCipher.getStorageCapacity());
+        System.out.println("Size: " + threeTenCipher.getSize());
+
+        // smaller
+        // create added char array with length of 180
+        char[] charArr2 = new char[20];
+        for (int i = 0; i < 20; i++) {
+            charArr2[i++] = 'b';
+        }
+        threeTenCipher.insertText(charArr2);
+        System.out.println("After adding: ");
+        System.out.println("Cap: " + threeTenCipher.getStorageCapacity());
+        System.out.println("Size: " + threeTenCipher.getSize());
+
+        /*
+        // bigger
+        // create added char array with length of 180
+        char[] charArr3 = new char[50];
+        for (int i = 0; i < 50; i++) {
+            charArr3[i++] = 'c';
+        }
+        threeTenCipher.insertText(charArr3);
+        System.out.println("After adding: ");
+        System.out.println("Cap: " + threeTenCipher.getStorageCapacity());
+        System.out.println("Size: " + threeTenCipher.getSize());*/
+
+        // equal to the cap
+
+        // there is one empty element in the added array
+        // create added char array with length of 180
+        char[] charArr3 = new char[26];
+        for (int i = 0; i < 25; i++) {
+            charArr3[i++] = 'c';
+        }
+        threeTenCipher.insertText(charArr3);
+        System.out.println("After adding: ");
+        System.out.println("Cap: " + threeTenCipher.getStorageCapacity());
+        System.out.println("Size: " + threeTenCipher.getSize());
+        assertEquals(337, threeTenCipher.getStorageCapacity());
+    }
+
+
+    @Test
+    void testCleanArchivedText() {
+    }
+
+    @Test
+    void testGetStorageCapacity1() {
+    }
+
+    @Test
+    void testGetSize() {
+    }
+
+    @Test
+    void testIsEmpty1() {
+    }
+
+    @Test
+    void testIsFull1() {
+    }
+
+    @Test
+    void testSetCipherText1() {
+    }
+
+    @Test
+    void testGetCipherText1() {
+    }
+
+    @Test
+    void testSetPlainText1() {
+    }
+
+    @Test
+    void testGetPlainText1() {
+    }
+
+    @Test
+    void testSetKeys1() {
+    }
+
+    @Test
+    void testGetTextArchive() {
     }
 }

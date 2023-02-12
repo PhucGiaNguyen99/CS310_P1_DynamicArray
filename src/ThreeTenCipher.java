@@ -1,10 +1,17 @@
-import javax.crypto.Cipher;
 import java.util.Arrays;
 
 /**
  * @author Phuc Nguyen
  */
 public class ThreeTenCipher {
+
+    private final int INITIAL_CAPACITY = 100;
+    private final double GROWTH_RATE = 1.5;
+
+    /**
+     * The maximum size of array to allocate.
+     */
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     /**
      * Constructor:
@@ -14,21 +21,19 @@ public class ThreeTenCipher {
      * Initialize sizeStored to 0.
      */
     public ThreeTenCipher(char[][] givenKeys, String givenPlainText) {
-        plainText = givenPlainText;
-        keys = givenKeys;
+        ThreeTenCipher.plainText = givenPlainText.toLowerCase();
+        ThreeTenCipher.keys = givenKeys;
 
         // initialize the capacity to the default capacity of 100
-        this.capacity = DEFAULT_CAPACITY;
+        this.capacity = INITIAL_CAPACITY;
 
         // initialize textArchive with the capacity
-        this.textArchive = new char[DEFAULT_CAPACITY];
+        this.textArchive = new char[INITIAL_CAPACITY];
         this.sizeStored = 0;
 
-        cipherText = "";
+        ThreeTenCipher.cipherText = "";
     }
 
-    private final int DEFAULT_CAPACITY = 100;
-    private final double GROWTH_RATE = 1.5;
 
     /**
      * Store the capacity of textArchive.
@@ -52,7 +57,7 @@ public class ThreeTenCipher {
     public static String plainText;
 
     /**
-     *  A character array with initial capacity of 100 that contains all decoded text blocks
+     * A character array with initial capacity of 100 that contains all decoded text blocks
      */
     private char[] textArchive;
 
@@ -62,23 +67,83 @@ public class ThreeTenCipher {
     private int sizeStored = 0;
 
     /**
-     * Adds a new text to the textArchive.
-     * If textArchive is full, it will increase the size to 1.5 the original size to accommodate the new text inserted.
+     * Adds new text to textArchive.
+     * If sizeStored - capacity > 0, expand textArchive 1.5 times.
      * This method should be O(n)
      *
-     * @param newText the new text to be added to textArchive
+     * @param newText the new text to be added.
      */
     public void insertText(char[] newText) {
-
+        int newTextLength = newText.length;
+        ensureCapacity(sizeStored + newTextLength);
+        System.arraycopy(newText, 0, textArchive, sizeStored, newTextLength);
+        sizeStored += newTextLength;
     }
 
     /**
-     * Expand the textArchive with the growRate of 1.5.
+     * Expand textArchive by increasing the capacity 1.5 times.
+     *
+     * @param minCapacity length of the array needed to be appended.
      */
-    public void grow() {
-        int newCapacity = (int) ((double) this.capacity * 1.5);
+    private void grow(int minCapacity) {
+        int newCapacity = capacity + (capacity >> 1);
+
+        // find the larger between newCapacity and required minCapacity
+        while (minCapacity - newCapacity > 0) {
+            newCapacity = newCapacity + (newCapacity >> 1);
+        }
+        if (newCapacity - MAX_ARRAY_SIZE > 0) {
+            newCapacity = hugeCapacity(minCapacity);
+        }
         this.textArchive = Arrays.copyOf(this.textArchive, newCapacity);
         this.capacity = newCapacity;
+    }
+
+    private static int hugeCapacity(int minCapacity) {
+        if (minCapacity < 0) {
+            throw new OutOfMemoryError();
+        }
+        return (minCapacity > MAX_ARRAY_SIZE) ?
+                Integer.MAX_VALUE :
+                MAX_ARRAY_SIZE;
+    }
+
+    // ensureCapacity()
+    // while (isFull)
+    // addAll(char[] charArr)
+    // new length is size +charArr.length() to ensureCapacityInternal
+    private void ensureCapacity(int minCapacity) {
+        // if needed new space for new character, expand textArchive 1.5 times
+        if (minCapacity - capacity > 0) {
+            grow(minCapacity);
+        }
+    }
+
+
+    /**
+     * Check if the given index is in range. If not throw IndexOutOfBoundsException().
+     *
+     * @param index the index to be checked.
+     */
+    private void rangeCheck(int index) {
+        if (index >= sizeStored) {
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+        }
+    }
+
+    /**
+     * A version of rangeCheck used by insert.
+     *
+     * @param index the index to be checked.
+     */
+    private void rangeCheckForInsert(int index) {
+        if (index > sizeStored || index < 0) {
+            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+        }
+    }
+
+    private String outOfBoundsMsg(int index) {
+        return "Index: " + index + ", Size: " + sizeStored;
     }
 
     /**
@@ -150,7 +215,7 @@ public class ThreeTenCipher {
     }
 
     /**
-     * plaiText setter
+     * plainText setter
      *
      * @param plain to set plainText
      */
