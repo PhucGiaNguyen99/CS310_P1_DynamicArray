@@ -14,6 +14,11 @@ public class ThreeTenCipher {
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     /**
+     * Empty array instance used for default sized empty instances.
+     */
+    private static final char[] EMPTY_ELEMENTDATA = {};
+
+    /**
      * Constructor:
      * Initialize plainText and keys to given values.
      * Initialize capacity to DEFAULT_CAPACITY.
@@ -119,30 +124,37 @@ public class ThreeTenCipher {
         }
     }
 
-
     /**
-     * Check if the given index is in range. If not throw IndexOutOfBoundsException().
+     * Check if given index is in range. If not, throws IndexOutOfBoundsException()
      *
      * @param index the index to be checked.
      */
     private void rangeCheck(int index) {
-        if (index >= sizeStored) {
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+        if (index > sizeStored || index < 0) {
+            throw new IndexOutOfBoundsException((index));
         }
     }
 
     /**
-     * A version of rangeCheck used by insert.
+     * Check if given startIndex and endIndex, which is (startIndex + size - 1) is in range. If not, throws IndexOutOfBoundsException()
+     * startIndex is inclusive, while endIndex is exclusive.
      *
-     * @param index the index to be checked.
+     * @param startIndex start index to be checked.
+     * @param size       number of elements from startIndex.
      */
-    private void rangeCheckForInsert(int index) {
-        if (index > sizeStored || index < 0) {
-            throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+    private boolean rangeCheckForClean(int startIndex, int size) {
+        int endIndex = startIndex + size;
+        if (startIndex < 0 || startIndex >= sizeStored || endIndex > sizeStored || size < 0) {
+            throw new IndexOutOfBoundsException((outOfBoundsMsgForClean(startIndex, endIndex)));
         }
+        return true;
     }
 
-    private String outOfBoundsMsg(int index) {
+    private String outOfBoundsMsgForClean(int startIndex, int endIndex) {
+        return "Start index: " + startIndex + ", end index: " + endIndex + ", size: " + sizeStored;
+    }
+
+    private String outOfBoundMsg(int index) {
         return "Index: " + index + ", Size: " + sizeStored;
     }
 
@@ -158,8 +170,39 @@ public class ThreeTenCipher {
      * @param size  the number of elements to remove from textArchive
      * @return returns true if successful
      */
+
+    // TEST: rangeCheckForClean
+    // TEST: after cleanArchivedText, test new sizeStored with given valid parameters
     public boolean cleanArchivedText(int start, int size) {
+        rangeCheckForClean(start, size);
+
+        // start index is inclusive, while endIndex is exclusive. Therefore, size = end - start + 1
+        int end = start + size;
+
+        // shift all succeeding elements to the left
+        int numMoved = sizeStored - end;
+        System.arraycopy(textArchive, end, textArchive, start, numMoved);
+
+        int newSize = sizeStored - size;
+        for (int i = newSize; i < size; i++) {
+            textArchive[i] = '\0';
+        }
+
+        // trim the array by decreasing the capacity to newSize
+        // set capacity and sizedStore to newSize
+        trimToSize(newSize);
+
+        // set sizeStored to newSize
+        sizeStored = newSize;
         return true;
+    }
+
+    public void trimToSize(int newSize) {
+        if (newSize < capacity) {
+            textArchive = (sizeStored == 0) ? EMPTY_ELEMENTDATA : Arrays.copyOf(textArchive, newSize);
+            capacity = newSize;
+            sizeStored = newSize;
+        }
     }
 
     /**

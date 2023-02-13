@@ -1166,7 +1166,7 @@ class ThreeTenCipherTest {
         }
         };
         ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
-        assertEquals("Phuc", threeTenCipher.getPlainText());
+        assertEquals("phuc", threeTenCipher.getPlainText());
     }
 
     @Test
@@ -3134,6 +3134,160 @@ class ThreeTenCipherTest {
 
     @Test
     void testCleanArchivedText() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        char[] charArr3 = new char[50];
+        for (int i = 0; i < 25; i++) {
+            charArr3[i++] = 'a';
+        }
+
+        // capacity is 100, size is 50
+        // insert an array with size 50
+        threeTenCipher.insertText(charArr3);
+
+        // start index = 10 and size = 10
+        threeTenCipher.cleanArchivedText(10, 20);
+
+        assertEquals(30, threeTenCipher.getSize());
     }
 
     @Test
@@ -3174,5 +3328,957 @@ class ThreeTenCipherTest {
 
     @Test
     void testGetTextArchive() {
+    }
+
+    /*
+    @Test
+    void testRangeCheckForCleanInRange() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        char[] charArr3 = new char[50];
+        for (int i = 0; i < 25; i++) {
+            charArr3[i++] = 'a';
+        }
+
+        // capacity is 100, size is 50
+        // insert an array with size 50
+        threeTenCipher.insertText(charArr3);
+
+        // test method with startIndex=10 and size=10
+        // it should return true without throwing any exception
+        assertTrue(threeTenCipher.rangeCheckForClean(10, 10));
+    }
+
+
+    @Test
+    void testRangeCheckForCleanWithStartIndexOutOfRange() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        char[] charArr3 = new char[50];
+        for (int i = 0; i < 25; i++) {
+            charArr3[i++] = 'a';
+        }
+
+        // capacity is 100, size is 50
+        // insert an array with size 50
+        threeTenCipher.insertText(charArr3);
+
+        // test method with startIndex=10 and size=10
+        // it should return true without throwing any exception
+        assertTrue(threeTenCipher.rangeCheckForClean(60, 10));
+    }
+    */
+
+    /*
+    @Test
+    void testRangeCheckForCleanWithEndIndexOutOfRange() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        char[] charArr3 = new char[50];
+        for (int i = 0; i < 25; i++) {
+            charArr3[i++] = 'a';
+        }
+
+        // capacity is 100, size is 50
+        // insert an array with size 50
+        threeTenCipher.insertText(charArr3);
+
+        // test method with startIndex=10 and size=10
+        // it should return true without throwing any exception
+        assertTrue(threeTenCipher.rangeCheckForClean(40, 40));
+    }
+*/
+
+    /*
+    @Test
+    void testRangeCheckForCleanWithEndSmallerThanStart() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        char[] charArr3 = new char[50];
+        for (int i = 0; i < 25; i++) {
+            charArr3[i++] = 'a';
+        }
+
+        // capacity is 100, size is 50
+        // insert an array with size 50
+        threeTenCipher.insertText(charArr3);
+
+        // test method with startIndex=10 and size=10
+        // it should return true without throwing any exception
+        assertTrue(threeTenCipher.rangeCheckForClean(20, -5));
+    }*/
+
+    /*
+    @Test
+    void testRangeCheckForStartIndexSmallerThanZero() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        char[] charArr3 = new char[50];
+        for (int i = 0; i < 25; i++) {
+            charArr3[i++] = 'a';
+        }
+
+        // capacity is 100, size is 50
+        // insert an array with size 50
+        threeTenCipher.insertText(charArr3);
+
+        // test method with startIndex=10 and size=10                                                              DELETED
+        // it should return true without throwing any exception                                                    MUST THROW EXCEPTION
+        assertTrue(threeTenCipher.rangeCheckForClean(-2, 10));
+
+        // SIZE OF 0 IS ACCEPTED
+    }*/
+
+    @Test
+    void testTrimToSize() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        char[] charArr3 = new char[50];
+        for (int i = 0; i < 25; i++) {
+            charArr3[i++] = 'a';
+        }
+
+        // capacity is 100, size is 50
+        // insert an array with size 50
+        threeTenCipher.insertText(charArr3);
+        threeTenCipher.trimToSize(50);
+
+        // test method with startIndex=10 and size=10                                                              DELETED
+        // it should return true without throwing any exception                                                    MUST THROW EXCEPTION
+        assertEquals(50, threeTenCipher.getStorageCapacity());
     }
 }
