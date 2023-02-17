@@ -4,12 +4,14 @@ import java.util.Arrays;
  * @author Phuc Nguyen
  */
 public class ThreeTenCipher {
+    /**
+     * Constant for initial capacity of textArchive.
+     */
+    private final int DEFAULT_INITIAL_CAPACITY = 100;
 
-    private final int INITIAL_CAPACITY = 100;
-    private final double GROWTH_RATE = 1.5;
 
     /**
-     * The maximum size of array to allocate.
+     * Constant for the maximum size of array to allocate.
      */
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
@@ -17,27 +19,6 @@ public class ThreeTenCipher {
      * Empty array instance used for default sized empty instances.
      */
     private static final char[] EMPTY_ELEMENTDATA = {};
-
-    /**
-     * Constructor:
-     * Initialize plainText and keys to given values.
-     * Initialize capacity to DEFAULT_CAPACITY.
-     * Initialize textArchive with DEFAULT_CAPACITY.
-     * Initialize sizeStored to 0.
-     */
-    public ThreeTenCipher(char[][] givenKeys, String givenPlainText) {
-        ThreeTenCipher.plainText = givenPlainText.toLowerCase();
-        ThreeTenCipher.keys = givenKeys;
-
-        // initialize the capacity to the default capacity of 100
-        this.capacity = INITIAL_CAPACITY;
-
-        // initialize textArchive with the capacity
-        this.textArchive = new char[INITIAL_CAPACITY];
-        this.sizeStored = 0;
-
-        ThreeTenCipher.cipherText = "";
-    }
 
 
     /**
@@ -47,17 +28,17 @@ public class ThreeTenCipher {
 
 
     /**
-     * Store the 5 cipher alphabets each of 26 characters length.
+     * Store the cipher alphabets each of 26 characters length.
      */
     public static char[][] keys;
 
     /**
-     * This is the cipher text to be decrypted.
+     * Store the cipher text to be decrypted.
      */
     public static String cipherText;
 
     /**
-     * The plain text to be encrypted.
+     * Store the plain text to be encrypted.
      */
     public static String plainText;
 
@@ -67,9 +48,30 @@ public class ThreeTenCipher {
     private char[] textArchive;
 
     /**
-     * the size of the stored text in textArchive.
+     * The size of the stored text in textArchive.
      */
-    private int sizeStored = 0;
+    private int sizeStored;
+
+    /**
+     * Constructor:
+     * -Initialize plainText and keys to given values.
+     * -Initialize capacity to DEFAULT_CAPACITY.
+     * -Initialize textArchive with DEFAULT_CAPACITY.
+     * -Initialize sizeStored to 0.
+     */
+    public ThreeTenCipher() {
+        // initialize the capacity to the default capacity of 100
+        this.capacity = DEFAULT_INITIAL_CAPACITY;
+
+        // initialize textArchive with the initial capacity
+        this.textArchive = new char[DEFAULT_INITIAL_CAPACITY];
+
+
+        this.sizeStored = 0;
+
+        // initialize cipherText to an empty string
+        ThreeTenCipher.cipherText = "";
+    }
 
     /**
      * Adds new text to textArchive.
@@ -83,6 +85,7 @@ public class ThreeTenCipher {
         ensureCapacity(sizeStored + newTextLength);
         System.arraycopy(newText, 0, textArchive, sizeStored, newTextLength);
         sizeStored += newTextLength;
+
     }
 
     /**
@@ -91,16 +94,20 @@ public class ThreeTenCipher {
      * @param minCapacity length of the array needed to be appended.
      */
     private void grow(int minCapacity) {
+        // newCapacity is the largest size
         int newCapacity = capacity + (capacity >> 1);
 
-        // find the larger between newCapacity and required minCapacity
+        // keep expanding the capacity 1.5 times until it is larger than minCapacity, which is required
         while (minCapacity - newCapacity > 0) {
             newCapacity = newCapacity + (newCapacity >> 1);
         }
         if (newCapacity - MAX_ARRAY_SIZE > 0) {
             newCapacity = hugeCapacity(minCapacity);
         }
+        // copy all the elements of old array to new larger array
         this.textArchive = Arrays.copyOf(this.textArchive, newCapacity);
+
+        // update the new capacity
         this.capacity = newCapacity;
     }
 
@@ -112,13 +119,14 @@ public class ThreeTenCipher {
                 Integer.MAX_VALUE :
                 MAX_ARRAY_SIZE;
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ensureCapacity()
     // while (isFull)
     // addAll(char[] charArr)
     // new length is size +charArr.length() to ensureCapacityInternal
     private void ensureCapacity(int minCapacity) {
-        // if needed new space for new character, expand textArchive 1.5 times
+
+        // if required capacity minCapacity is larger than capacity, expand textArchive
         if (minCapacity - capacity > 0) {
             grow(minCapacity);
         }
@@ -150,10 +158,23 @@ public class ThreeTenCipher {
         return true;
     }
 
+    /**
+     * String to notify of invalid start index and end index.
+     *
+     * @param startIndex invalid start index
+     * @param endIndex   invalid end index
+     * @return String to notify
+     */
     private String outOfBoundsMsgForClean(int startIndex, int endIndex) {
         return "Start index: " + startIndex + ", end index: " + endIndex + ", size: " + sizeStored;
     }
 
+    /**
+     * String to notify of invalid start index and end index.
+     *
+     * @param index   invalid index
+     * @return String to notify
+     */
     private String outOfBoundMsg(int index) {
         return "Index: " + index + ", Size: " + sizeStored;
     }
@@ -190,18 +211,22 @@ public class ThreeTenCipher {
 
         // trim the array by decreasing the capacity to newSize
         // set capacity and sizedStore to newSize
-        trimToSize(newSize);
+        trimToSize(capacity - size);
 
         // set sizeStored to newSize
         sizeStored = newSize;
         return true;
     }
 
-    public void trimToSize(int newSize) {
+    /**
+     * Trim textArchive to the required capacity.
+     *
+     * @param newSize
+     */
+    private void trimToSize(int newSize) {
         if (newSize < capacity) {
             textArchive = (sizeStored == 0) ? EMPTY_ELEMENTDATA : Arrays.copyOf(textArchive, newSize);
             capacity = newSize;
-            sizeStored = newSize;
         }
     }
 
@@ -292,7 +317,7 @@ public class ThreeTenCipher {
      * returns the characters of textArchive from start to size-1
      */
     public char[] getTextArchive(int start, int size) {
-        return null;
+        return textArchive;
     }
 
 }

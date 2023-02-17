@@ -145,7 +145,7 @@ class EncryptDecryptTest {
         }
         };
         String plainText = "HelloBitches 123";
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, plainText);
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
         EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
         encryptDecrypt.setPlainTextSize(9);
         assertEquals(9, encryptDecrypt.getPlainTextSize());
@@ -292,7 +292,7 @@ class EncryptDecryptTest {
         }
         };
         String plainText = "HelloBitches 123";
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, plainText);
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
         System.out.println(plainText);
         EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
         assertEquals(16, encryptDecrypt.getPlainTextSize());
@@ -440,7 +440,7 @@ class EncryptDecryptTest {
         };
         String plainText = "Phuc Nguyen 123";
 
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, plainText);
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
         EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
 
         System.out.println(plainText);
@@ -472,6 +472,152 @@ class EncryptDecryptTest {
 
     @Test
     void testDecrypt() {
+        char[][] givenKeys = new char[][]{
+                {
+                        'C',
+                        'X',
+                        'Q',
+                        'Z',
+                        'V',
+                        'T',
+                        'J',
+                        'U',
+                        'W',
+                        'R',
+                        'B',
+                        'H',
+                        'F',
+                        'N',
+                        'O',
+                        'S',
+                        'K',
+                        'L',
+                        'D',
+                        'P',
+                        'G',
+                        'E',
+                        'M',
+                        'A',
+                        'I',
+                        'Y'
+                }, {
+                'P',
+                'S',
+                'O',
+                'M',
+                'F',
+                'E',
+                'T',
+                'Q',
+                'W',
+                'A',
+                'J',
+                'V',
+                'L',
+                'D',
+                'I',
+                'H',
+                'R',
+                'C',
+                'X',
+                'B',
+                'G',
+                'N',
+                'Z',
+                'K',
+                'Y',
+                'U'
+        }, {
+                'A',
+                'U',
+                'B',
+                'M',
+                'K',
+                'W',
+                'R',
+                'N',
+                'S',
+                'L',
+                'F',
+                'C',
+                'T',
+                'Z',
+                'D',
+                'X',
+                'E',
+                'J',
+                'Q',
+                'O',
+                'V',
+                'Y',
+                'I',
+                'G',
+                'P',
+                'H'
+        }, {
+                'G',
+                'O',
+                'Z',
+                'T',
+                'M',
+                'R',
+                'N',
+                'K',
+                'U',
+                'H',
+                'J',
+                'X',
+                'B',
+                'V',
+                'W',
+                'C',
+                'I',
+                'Y',
+                'L',
+                'F',
+                'S',
+                'A',
+                'E',
+                'D',
+                'Q',
+                'P'
+        }, {
+                'W',
+                'F',
+                'Z',
+                'Y',
+                'H',
+                'U',
+                'I',
+                'A',
+                'B',
+                'T',
+                'D',
+                'X',
+                'R',
+                'E',
+                'C',
+                'L',
+                'Q',
+                'O',
+                'P',
+                'K',
+                'M',
+                'J',
+                'N',
+                'S',
+                'V',
+                'G'
+        }
+        };
+        String plainText = "Hello Bitches -1234";
+
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
+
+        // try to print the encrypted text after calling encrypt()
+        encryptDecrypt.encrypt();
+        assertEquals(ThreeTenCipher.plainText,encryptDecrypt.decrypt());
     }
 
     @Test
@@ -621,7 +767,7 @@ class EncryptDecryptTest {
         };
         String plainText = "Phuc Nguyen 123";
 
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, plainText);
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
         EncryptDecrypt encryptDecrypt = new EncryptDecrypt();
         assertEquals('K', encryptDecrypt.getEncryptedChar(4, 't'));
 

@@ -1,6 +1,6 @@
 
 /**
- * @author maha
+ * @author PHUC NGUYEN
  */
 public class EncryptDecrypt {
     /**
@@ -9,13 +9,12 @@ public class EncryptDecrypt {
     private final String ORIGINAL_ALPHABETS = "abcdefghijklmnopqrstuvwxyz";
 
     /**
-     * this integer array of size equal to plainTextSize
-     * contains the random numbers to be used by the encrypt/decrypt methods
+     * An integer array with size equal to plainTextSize contains the random numbers to be used by the encrypt/decrypt methods
      */
     private int[] selectAlpha;
 
     /**
-     * this instance variable contains the size of the plainText in the ThreeTenCipher class.
+     * Contains the size of the plainText in the ThreeTenCipher class.
      */
     private int plainTextSize = ThreeTenCipher.plainText.length();
 
@@ -34,15 +33,11 @@ public class EncryptDecrypt {
      *
      * @return an integer array of cipher alphabets indexes
      */
-    // Print out which cipher alphabets array applied for each character
-    // REMOVE PLAIN TEXT SIZE
     private int[] generateSelectAlpha() {
         this.selectAlpha = new int[getPlainTextSize()];
         int keysLength = ThreeTenCipher.keys.length;
-        //System.out.println("");
         for (int i = 0; i < plainTextSize; i++) {
             this.selectAlpha[i] = randomNumber(keysLength);
-            //System.out.println("Index " + i + ": " + this.selectAlpha[i]);
         }
         return selectAlpha;
     }
@@ -54,7 +49,7 @@ public class EncryptDecrypt {
      * @param c given length to set for plainText of ThreeTenCipher class
      */
     public void setPlainTextSize(int c) {
-        this.plainTextSize = c;
+        this.plainTextSize = Character.toLowerCase(c);
     }
 
     /**
@@ -68,13 +63,12 @@ public class EncryptDecrypt {
 
 
     /**
-     * Get index of given character in the alphabet array constant ORIGINAL_ALPHABETS.
+     * Get index of given character in the alphabet array ORIGINAL_ALPHABETS.
      *
      * @param c character to check index of.
      * @return index of given character c.
      */
-    private int getCharIndex(char c) {
-        System.out.println("Char index in the alphabet: " + ORIGINAL_ALPHABETS.indexOf(c));
+    private int getCharIndexFromAlphabets(char c) {
         return ORIGINAL_ALPHABETS.indexOf(c);
     }
 
@@ -86,7 +80,7 @@ public class EncryptDecrypt {
      * @return encrypted value of given character
      */
     public char getEncryptedChar(int keyIndex, char c) {
-        int charIndex = getCharIndex(c);
+        int charIndex = getCharIndexFromAlphabets(c);
         return ThreeTenCipher.keys[keyIndex][charIndex];
     }
 
@@ -107,17 +101,15 @@ public class EncryptDecrypt {
      */
     // REMOVE KEYS ARRAY, remove plainText, void
     public void encrypt() {
-        int[] selectAlpha = generateSelectAlpha();
+        selectAlpha = generateSelectAlpha();
         for (int charIndex = 0; charIndex < this.plainTextSize; charIndex++) {
             char currentChar = ThreeTenCipher.plainText.charAt(charIndex);
-            System.out.println("From: " + currentChar);
+
+            // if currentChar is a letter, get its encrypted value and append to cipherText
             if (isCurrentCharALetter(currentChar)) {
                 int keyIndex = selectAlpha[charIndex];
-                System.out.println("Cipher arr: " + keyIndex);
-                System.out.println("To: " + getEncryptedChar(keyIndex, Character.toLowerCase(currentChar)));
-                ThreeTenCipher.cipherText += getEncryptedChar(keyIndex, Character.toLowerCase(currentChar));
+                ThreeTenCipher.cipherText += getEncryptedChar(keyIndex, currentChar);
             } else {
-                System.out.println("To(original): " + currentChar);
                 ThreeTenCipher.cipherText += currentChar;
             }
         }
@@ -148,7 +140,6 @@ public class EncryptDecrypt {
     private char[] toCharArr(String givenString) {
         return givenString.toCharArray();
     }
-    // Found index of the character in key arr, return original character
 
     /**
      * Return original character with the character index in key array.
@@ -171,27 +162,18 @@ public class EncryptDecrypt {
         String decryptedText = "";
         for (int charIndex = 0; charIndex < plainTextSize; charIndex++) {
             char currentChar = ThreeTenCipher.cipherText.charAt(charIndex);
-            // decrypt the current character if it is a letter
+            // if currentChar is a letter, get its decrypted value and append it to decryptedText
             if (isCurrentCharALetter(currentChar)) {
                 char[] keyArr = ThreeTenCipher.keys[selectAlpha[charIndex]];
                 decryptedText += getOriginalChar(indexOf(keyArr, currentChar));
             } else {
                 decryptedText += currentChar;
             }
-
         }
         return decryptedText;
     }
 
-    /**
-     * calls method insertText of the ThreeTenCipher class in order to store the decoded string in textArchive
-     *
-     * @param s s is passed by the decrypt method
-     */
-    public void archiveDecrypted(String s) {
-    }
-
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         char[][] givenKeys = new char[][]{
                 {
                         'C',
@@ -341,7 +323,7 @@ public class EncryptDecrypt {
         System.out.println("Cipher text: " + ThreeTenCipher.cipherText);
 
         System.out.println("Decrypted text: " + encryptDecrypt.decrypt());
-    }
+    }*/
 
 
 }

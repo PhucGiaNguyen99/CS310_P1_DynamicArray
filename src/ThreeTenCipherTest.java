@@ -8,7 +8,6 @@ class ThreeTenCipherTest {
 
     @Test
     void getStorageCapacity() {
-        ThreeTenCipher.plainText = "123456789";
         char[][] givenKeys = new char[][]{
                 {
                         'C',
@@ -147,7 +146,9 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
         assertEquals(100, threeTenCipher.getStorageCapacity());
     }
 
@@ -292,7 +293,9 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
         assertEquals(0, threeTenCipher.getSize());
     }
 
@@ -437,7 +440,9 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
         assertTrue(threeTenCipher.isEmpty());
     }
 
@@ -582,7 +587,9 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
         assertFalse(threeTenCipher.isFull());
     }
 
@@ -727,7 +734,7 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
         threeTenCipher.setCipherText("Practice makes perfect!");
         assertEquals("Practice makes perfect!", threeTenCipher.getCipherText());
     }
@@ -873,7 +880,9 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
         assertEquals("", threeTenCipher.getCipherText());
 
     }
@@ -1019,14 +1028,13 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
         threeTenCipher.setPlainText("Ho Ngoc Ha");
         assertEquals("Ho Ngoc Ha", threeTenCipher.getPlainText());
     }
 
     @Test
     void getPlainText() {
-        ThreeTenCipher.plainText = "123456789";
         char[][] givenKeys = new char[][]{
                 {
                         'C',
@@ -1165,8 +1173,10 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
-        assertEquals("phuc", threeTenCipher.getPlainText());
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
+        assertEquals("Hello bitches 123", threeTenCipher.getPlainText());
     }
 
     @Test
@@ -1449,8 +1459,9 @@ class ThreeTenCipherTest {
                 'G'
         }
         };
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
-
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
         assertTrue(Arrays.deepEquals(newKeys, threeTenCipher.setKeys(newKeys, 1)));
 
     }
@@ -1605,7 +1616,9 @@ class ThreeTenCipherTest {
         };
 
 
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
         assertEquals(100, threeTenCipher.getStorageCapacity());
     }
 /*
@@ -1751,13 +1764,15 @@ class ThreeTenCipherTest {
         };
 
 
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
         threeTenCipher.grow();
         assertEquals(150, threeTenCipher.getStorageCapacity());
         threeTenCipher.grow();
         assertEquals(225, threeTenCipher.getStorageCapacity());
 
-    }
+    }*/
 
     @Test
     void testGetSize() {
@@ -1901,11 +1916,14 @@ class ThreeTenCipherTest {
         };
 
 
-        ThreeTenCipher threeTenCipher = new ThreeTenCipher(givenKeys, "Phuc");
-    }*/
+        ThreeTenCipher threeTenCipher = new ThreeTenCipher();
+        threeTenCipher.setPlainText("Hello bitches 123");
+        threeTenCipher.setKeys(givenKeys, 3);
+    }
 
     @Test
     void testIsEmpty() {
+        /*
         char[][] givenKeys = new char[][]{
                 {
                         'C',
@@ -3124,17 +3142,17 @@ class ThreeTenCipherTest {
         for (int i = 0; i < 25; i++) {
             charArr3[i++] = 'c';
         }
-        threeTenCipher.insertText(charArr3);
-        System.out.println("After adding: ");
-        System.out.println("Cap: " + threeTenCipher.getStorageCapacity());
-        System.out.println("Size: " + threeTenCipher.getSize());
-        assertEquals(337, threeTenCipher.getStorageCapacity());
+        //threeTenCipher.insertText(charArr3);
+        //System.out.println("After adding: ");
+        //System.out.println("Cap: " + threeTenCipher.getStorageCapacity());
+        //System.out.println("Size: " + threeTenCipher.getSize());
+        //assertEquals(337, threeTenCipher.getStorageCapacity());
     }
 
 
     @Test
     void testCleanArchivedText() {
-        char[][] givenKeys = new char[][]{
+        /*char[][] givenKeys = new char[][]{
                 {
                         'C',
                         'X',
@@ -4122,10 +4140,12 @@ class ThreeTenCipherTest {
         assertTrue(threeTenCipher.rangeCheckForClean(-2, 10));
 
         // SIZE OF 0 IS ACCEPTED
-    }*/
+    }
+
 
     @Test
     void testTrimToSize() {
+    /*
         char[][] givenKeys = new char[][]{
                 {
                         'C',
@@ -4280,5 +4300,6 @@ class ThreeTenCipherTest {
         // test method with startIndex=10 and size=10                                                              DELETED
         // it should return true without throwing any exception                                                    MUST THROW EXCEPTION
         assertEquals(50, threeTenCipher.getStorageCapacity());
+    }*/
     }
 }

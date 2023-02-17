@@ -145,18 +145,31 @@ public class ThreeTenCipherTest2 {
                 'G'
         }
         };
+
+        // create keys
+        // create plainText
         String text1 = new String("Hello 310 students");
+
+        // create objects for ThreeTenCipher and EncryptDecrypt classes
         //ThreeTenCipher P1 = new ThreeTenCipher();
         EncryptDecrypt EncDec = new EncryptDecrypt();
-        //P1.setPlainText(text1);
 
+        // set plainText and keys to ThreeTenCipher object
+        //P1.setPlainText(text1);
         //P1.setKeys(A, text1.length());
+
+
+        // Encrypt plainText to get cipherText
         //EncDec.encrypt();
+
+        // assign decrypt string to an instance variable
         String text2 = EncDec.decrypt();
+
+        // compare plainText and decrypt string
         if (text1.equals(text2))
             System.out.println("Yay");
 
-        // create more testers for textArxhive of ThreeTenCipher
+        // create more testers for textArchive of ThreeTenCipher
 
     }
 }
